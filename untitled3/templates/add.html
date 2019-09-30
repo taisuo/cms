@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>添加</h1>
+<from>
+  <p>文件名<input type="text" value="" id="user" name="user"></p>
+    <p>内容<input type="text" value="" id="pwd" name="pwd"></p>
+    <input type="submit" class="submit" name="提交">
+</from>
+<script src="/static/js/jquery.js"></script>
+<script>
+      var _user=document.getElementById("user").value;
+      var _pwd=document.getElementById("pwd").value;
+       var arr=[]
+       var a={}
+        $(".submit").click(function(){
+            var _user=document.getElementById("user").value;
+            var _pwd=document.getElementById("pwd").value;
+
+      {#localStorage.setItem( "nameuser", _user );#}
+      {#localStorage.setItem( "namepwd", _pwd );#}
+            location.href="http://127.0.0.1:8001/polls/list";
+
+    });
+
+ </script>
+</body>
+</html>

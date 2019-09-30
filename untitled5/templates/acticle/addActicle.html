@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/js/jquery-3.4.1.js"></script>
+<script src="/static/js/jquery.validate.js"></script>
+<script src="/static/js/jquery.form.js"></script>
+</head>
+<body>
+添加
+<form action="/acticle/addActicleHandle/"   method="post">
+     <div>
+        <lable>标题</lable>
+        <input type="text" name="title" id="username">
+    </div>
+     <div>
+        <lable>内容</lable>
+        <input type="text" name="content" id="username">
+    </div>
+     <div>
+        <lable>作则</lable>
+        <input type="text" name="author" id="username" disabled>
+    </div>
+    <div> <input id="btn" type="submit" value="发布" ></div>
+</form>
+</body>
+<script>
+    var currentUser;
+    init();
+    function init() {
+        currentUser=localStorage.getItem("currentUser");
+        if(currentUser==null){
+             alert("先登录")
+            location.href="/user/login";
+             return;
+        }
+
+       $("input").eq(2).val(currentUser)
+        validate()
+    }
+
+    function validate() {
+      $("form").validate({
+         rules:{
+             tittle:{
+                required:true
+
+             },
+             content:{
+                 required:true
+
+             }
+				},
+				messages:{
+                     tittle:{
+                          required:"用户名不符合要求"
+                     },
+                     content:{
+                         required:"用户名不符合要求"
+                     }
+
+                },
+				submitHandler:function(form) {
+                    console.log("验证通过");
+                     var articleList=localStorage.getItem("acticle");
+
+                     var now=new Date();
+                   var date=now.getFullYear()+"年"+(now.getMonth()+1)+"月"+(now.getDate())+"日"+" "+(now.getHours())+"-"+(now.getMinutes()+"-"+(now.getSeconds()))
+                     console.log(articleList)
+                        if (articleList !=null){
+                        var articleListArr1=JSON.parse(articleList);
+                        console.log(articleListArr1)
+                             var _article;
+                            for(var i=0;i<articleListArr1.length;i++){
+                             var _article=articleListArr1[i];
+                             if(_article["name"]==currentUser){
+                                 console.log("发不过")
+                                  var _articleobj={
+                                        title:form.title.value,
+                                        content:form.content.value,
+                                        time:date
+                                    };
+                                 console.log(_articleobj);
+                                 return false;
+
+                                  _article["articleList"].push(_articleobj);
+                                  localStorage.setItem("acticle",JSON.stringify(articleListArr1));
+                                  location.href="/acticle/acticleList";
+                                  return;
+                             }
+                            }
+
+                            console.log("用户没有发布过")
+                              //当前用户没有发布过
+                            var articleobj={
+                                 author:currentUser,
+                                 articlelist:[{
+                                      title:form.title.value,
+                                      content:form.content.value,
+                                      time:date
+                                    }]
+                            };
+                            articleListArr1.push(articleobj);
+                            console.log(articleListArr1)
+                            localStorage.setItem("acticle",JSON.stringify(articleListArr1))
+                            location.href="/acticle/acticleList"
+                            return  false;
+                    }
+                    //空
+                    var arr=[];
+                    var newarticleobj={
+                       author:currentUser,
+                        articlelist:[{
+                           title:form.title.value,
+                            content:form.content.value,
+                            time:date
+
+                        }]
+                    };
+                    arr.push(newarticleobj)
+                   localStorage.setItem("acticle",JSON.stringify(arr));
+                    alert("成功");
+                    location.href="/acticle/acticleList"
+                    return false;
+                }
+      })
+}
+ function  sendDateToServer(){
+
+              $("form").ajaxSubmit(function(data){
+						//data  json格式
+						var data1=JSON.parse(data);
+						if(data1["code"]==0){
+						    alert(data1["msg"]);
+                            location.href="/acticle/acticleList"
+						}else{
+						    alert(data1["msg"]);
+                        }
+					});
+    }
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

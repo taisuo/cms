@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <title>Title</title>
+{#    <script src="/static/js/jquery.form.js"></script>#}
+    <script src="/static/js/jquery-3.4.1.js"></script>
+     <script src="/static/js/jquery.form.js"></script>
+     <script src="/static/js/jquery.validate.js"></script>
+{#    <script src="{% static 'js/jquery.js'%}"></script>#}
+</head>
+<body>
+<h2>12345</h2>
+<form  action="/user/registHangle/" method="post" >
+    {% csrf_token%}
+    <div>
+        <label>用户名</label>
+        <input type="text" name="username">
+    </div>
+     <div>
+        <label>密码</label>
+        <input type="text" name="pwd">
+    </div>
+     <div>
+        <label>邮箱</label>
+        <input type="email" name="email">
+    </div>
+    <div>
+        <input type="submit" value="注册">
+    </div>
+</form>
+<script>
+ $("h2").css("color","blue")
+         init();
+        function init(){
+           validate()
+        }
+        function validate(){
+             $("form").validate({
+         rules:{
+             username:{
+                required:true,
+                 minlength:2,
+                 maxlength:10
+             },
+             pwd:{
+                 required:true,
+                  minlength:2,
+                 maxlength:10
+             },
+             email:{
+
+                    email:true
+                }
+				},
+				messages:{
+                     username:{
+                          required:"用户名不符合要求",
+                          minlength:"最小长度为2",
+                          maxlength:"最大长度为10"
+                     },
+                     pwd:{
+                         required:"用户名不符合要求",
+                         minlength:"最小长度为2",
+                         maxlength:"最大长度为10"
+                     },
+                     email:{
+
+                         email:"邮箱填写不符合要求"
+                     }
+                },
+				submitHandler:function(form) {
+                        alert("验证通过")
+                        sendDateToServer()
+
+                }
+      })
+        }
+
+    function  sendDateToServer(){
+            console.log("122")
+          $("form").ajaxSubmit(function(data){
+                                //data  json格式
+                                var data1=JSON.parse(data);
+                                if(data1["code"]==0){
+                                    alert(data1["msg"]);
+                                    {#location.href="/user/login"#}
+                                }else{
+                                    alert(data1["msg"]);
+                                }
+                            });
+
+    }
+</script>
+</body>
+</html>

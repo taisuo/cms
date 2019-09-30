@@ -1,0 +1,5 @@
+出错的时间：2019-08-19 14:56:04;出错的文件：G:\pythonwork\server\locomotivelist;出错的函数名：judgeNum;出错的行数：8;出错的信息：当前num大于1小于10
+出错的时间：2019-08-19 15:07:46;出错的文件：G:/pythonwork/server/locomotivelist/test8.py;出错的函数名：judgeNum;出错的行数：8;出错的信息：当前num大于1小于10 不满足条件
+出错的时间：2019-08-19 15:09:41;出错的文件：G:/pythonwork/server/locomotivelist/test8.py;出错的函数名：judgeNum;出错的行数：5;出错的信息：当前num小于1
+出错的时间：2019-08-19 15:23:49;出错的文件：G:/pythonwork/server/locomotivelist/test8.py;出错的函数名：judgeNum;出错的行数：5;出错的信息：当前num小于1
+出错的时间：2019-08-19 15:23:51;出错的文件：G:/pythonwork/server/locomotivelist/test8.py;出错的函数名：judgeNum;出错的行数：5;出错的信息：当前num小于1

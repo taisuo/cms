@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="/static/js/jquery-3.4.1.js"></script>
+<script src="/static/js/jquery.validate.js"></script>
+<script src="/static/js/jquery.form.js"></script>
+<body>
+注册
+<form action="/user/registHandle/" method="post">
+    {% csrf_token %}
+    <div>
+        <lable>姓名</lable>
+        <input type="text" name="username" id="username">
+    </div>
+    <div>
+        <lable>密码</lable>
+        <input type="password" name="pwd" id="pwd">
+    </div>
+    <div>
+        <lable>邮箱</lable>
+        <input type="text" name="email" id="email">
+    </div>
+    <div>
+         <input type="submit"  value="注册">
+    </div>
+
+</form>
+<script>
+    init();
+    function init() {
+        validate();
+    }
+function validate() {
+      $("form").validate({
+         rules:{
+             username:{
+                required:true,
+                 minlength:2,
+                 maxlength:10
+             },
+             pwd:{
+                 required:true,
+                  minlength:2,
+                 maxlength:10
+             },
+             email:{
+                    required:true,
+                    email:true
+                }
+				},
+				messages:{
+                     username:{
+                          required:"用户名不符合要求",
+                          minlength:"最小长度为2",
+                          maxlength:"最大长度为10"
+                     },
+                     pwd:{
+                         required:"用户名不符合要求",
+                         minlength:"最小长度为2",
+                         maxlength:"最大长度为10"
+                     },
+                     email:{
+                         required:"邮箱填写不符合要求",
+                         email:"邮箱填写不符合要求"
+                     }
+                },
+				submitHandler:function(form) {
+
+                    sendDateToServer()
+
+                }
+      })
+}
+    function  sendDateToServer(){
+
+              $("form").ajaxSubmit(function(data){
+						//data  json格式
+						var data1=JSON.parse(data);
+						if(data1["code"]==0){
+						    alert(data1["msg"]);
+                            {#location.href="/user/login"#}
+						}else{
+						    alert(data1["msg"]);
+                        }
+					});
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

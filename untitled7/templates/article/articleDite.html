@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/js/jquery-3.4.1.js"></script>
+     <script src="/static/js/jquery.form.js"></script>
+     <script src="/static/js/jquery.validate.js"></script>
+     <script src="/static/js/url.js"></script>
+</head>
+<body>
+详情
+<div id="list">
+
+</div>
+<script>
+    init()
+    function init() {
+        var id=location.search.split("=")[1];
+        console.log(id)
+         $.ajax({
+                        url:"/article/getarticleDiteinfo/",
+                        type:"get",
+                        dataType:"json",
+                        data:{
+                            id:id
+                        },
+                        success:function(data){
+                                console.log( data["data"]["content"])
+                         $("#list").append("<li>"+ data["data"]["content"]+"</li>")
+                            }
+                    });
+
+    }
+</script>
+</body>
+</html>

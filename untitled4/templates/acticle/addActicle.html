@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/js/jquery-3.4.1.js"></script>
+<script src="/static/js/jquery.validate.js"></script>
+<script src="/static/js/jquery.form.js"></script>
+</head>
+<body>
+添加
+<form action="/acticle/addActicleHandle/"   method="post">
+     {% csrf_token %}
+     <div>
+        <lable>标题</lable>
+        <input type="text" name="title" >
+    </div>
+     <div>
+        <lable>内容</lable>
+        <input type="text" name="content" >
+    </div>
+     <div>
+        <lable>作则</lable>
+        <input type="text" name="author"  disabled>
+    </div>
+    <input type="hidden" name="userid" id="userid" >
+    <div>
+
+    </div>
+    <div> <input id="btn" type="submit" value="发布" ></div>
+</form>
+</body>
+<script>
+    var currentUser;
+    var str;
+    init();
+    function init() {
+        str=getCookie("userid")
+        console.log(str)
+       document.getElementById("userid").value = str;
+        if(str==null){
+             alert("先登录")
+            location.href="/user/login";
+             return;
+        }
+
+       $("input").eq(3).val(str)
+        validate()
+    }
+
+    function validate() {
+      $("form").validate({
+         rules:{
+             tittle:{
+                required:true
+
+             },
+             content:{
+                 required:true
+
+             }
+				},
+				messages:{
+                     title:{
+                          required:"用户名不符合要求"
+                     },
+                     content:{
+                         required:"用户名不符合要求"
+                     }
+
+                },
+				submitHandler:function(form) {
+                    console.log("验证通过");
+
+
+                  sendDateToServer()
+                }
+      })
+}
+ function  sendDateToServer(){
+
+              $("form").ajaxSubmit(function(data){
+						//data  json格式
+						var data1=JSON.parse(data);
+						if(data1["code"]==0){
+						    alert(data1["msg"]);
+                            location.href="/acticle/acticleList"
+						}else{
+						    alert(data1["msg"]);
+                        }
+					});
+    }
+    function getCookie(name) {
+	console.log("_--getCookie")
+	var cookieName = encodeURIComponent(name) + '=';
+	var cookieStart = document.cookie.indexOf(cookieName);
+	var cookieValue = null;
+
+	if (cookieStart > -1) {
+		var cookieEnd = document.cookie.indexOf(';', cookieStart);
+		if (cookieEnd == -1) {
+			cookieEnd = document.cookie.length;
+		}
+		cookieValue = decodeURIComponent(
+document.cookie.substring(cookieStart + cookieName.length, cookieEnd));
+	}
+	return cookieValue;
+}
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

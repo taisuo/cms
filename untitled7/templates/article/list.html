@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/js/jquery-3.4.1.js"></script>
+     <script src="/static/js/jquery.form.js"></script>
+     <script src="/static/js/jquery.validate.js"></script>
+     <script src="/static/js/url.js"></script>
+</head>
+<body>
+123
+<button>添加</button>
+<div id="list">
+</div>
+</body>
+<script>
+    init()
+    function init() {
+         var uid=getCookie("uid")
+        {% for item in articlelist %}
+            <li> {{ itme.title }}--{{ item.uid }}</li>
+        {% endfor %}
+        console.log(uid)
+        $.ajax({
+            url:"/article/getArticleList/",
+            type:"get",
+            dataType:"json",
+            data:{
+                uid:uid
+            },
+            success:function(data){
+                    console.log( data)
+               for(var i=0;i<data["data"].length;i++){
+                        var _articleid=data["data"][i]["id"]
+                   console.log(_articleid)
+                      $("#list").append("<a href='/article/articleDite?id="+_articleid+"'><li>"+data["data"][i]["title"]+"</li></a>")
+                }
+                }
+        });
+
+        $("button").click(function () {
+            location.href="/article/addArticle/"
+        })
+    }
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+

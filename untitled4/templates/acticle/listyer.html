@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for k in current_date %}
+    <li>{{k.content }}</li>
+{% empty %}
+
+        <li>发布空文章
+            空空如也</li>
+
+{% endfor %}
+
+</body>
+</html>

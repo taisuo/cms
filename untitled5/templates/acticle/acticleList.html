@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/js/jquery-3.4.1.js"></script>
+<script src="/static/js/jquery.validate.js"></script>
+<script src="/static/js/jquery.form.js"></script>
+</head>
+<body>
+列表
+<button >++++</button>
+<div class="content showname">
+
+</div>
+</body>
+<script>
+    init()
+
+
+    function  init() {
+        var str1="";
+        $("button").click(function () {
+            location.href="/acticle/addActicle/"
+        })
+        var acticlelist=JSON.parse(localStorage.getItem("acticle"))
+       console.log(acticlelist);
+         var str="";
+        var allStr="";
+        for(var i=0;i<acticlelist.length;i++){
+            var _name=acticlelist[i]["author"];
+
+            for(var j=0;j<acticlelist[i]['articlelist'].length;j++){
+                var item=acticlelist[i]['articlelist'][j];
+                var title=item['title'];
+                var content=item['content'];
+                var time=item['time'];
+                str1+="<div><div>"+title+"时间是--"+time+"内容是---"+content+"</div></div>"
+            }
+
+            str+="<h1 id='namebtn'>"+_name+"</h1>"
+        }
+        console.log(str);
+        console.log(_name)
+        $(".content").html(str)
+
+        // $(".content").html(str1)
+        $("#namebtn").click(function () {
+            $("#namebtn").html(str1)
+        })
+    }
+
+
+
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

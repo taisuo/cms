@@ -1,0 +1,40 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/polls/index.css">
+</head>
+<body>
+<h1>views中找到index方法 把渲染字符串改为渲染模版文件,需要导入loader模块{{time}}</h1>
+<h2>views中找到index方法</h2>
+{#<script src="/static/polls/jquery.js">第一种方式</script>#}
+<script src="{% static 'polls/jquery.js'%}">第二种方式</script>
+<img src="/static/imgs/default.png">
+<script>
+    $("h2").css("color","blue")
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

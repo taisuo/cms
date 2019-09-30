@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <title>Title</title>
+{#    <script src="/static/js/jquery.form.js"></script>#}
+    <script src="/static/js/jquery-3.4.1.js"></script>
+     <script src="/static/js/jquery.form.js"></script>
+     <script src="/static/js/jquery.validate.js"></script>
+     <script src="/static/js/url.js"></script>
+</head>
+<body>
+<h2>12345</h2>
+<form  action="/article/addArticleHangle/" method="post" >
+    {% csrf_token%}
+    <div>
+        <label>标题</label>
+        <input type="text" name="title">
+    </div>
+     <div>
+        <label>内容</label>
+        <input type="text" name="content">
+    </div>
+     <div>
+        <label>作者</label>
+        <input type="email" name="author" id="author" disabled>
+        <input type="hidden" name="uid" id="uid">
+    </div>
+    <div>
+        <input type="submit" value="注册">
+    </div>
+</form>
+<script>
+ $("h2").css("color","blue")
+         init();
+        function init(){
+            var uid=getCookie("uid")
+            console.log(uid)
+            $('#uid').val(uid)
+             $.ajax({
+                        url:"/article/getusername/",
+                        type:"get",
+                        dataType:"json",
+                        data:{
+                            uid:uid
+                        },
+                        success:function(data){
+                                console.log( data)
+                             $('#author').val(data["data"]["username"])
+                               validate()
+                            }
+                    });
+
+        }
+        function validate(){
+             $("form").validate({
+         rules:{
+             username:{
+                required:true,
+                 minlength:2,
+                 maxlength:10
+             },
+             pwd:{
+                 required:true,
+                  minlength:2,
+                 maxlength:10
+             },
+             email:{
+
+                    email:true
+                }
+				},
+				messages:{
+                     username:{
+                          required:"用户名不符合要求",
+                          minlength:"最小长度为2",
+                          maxlength:"最大长度为10"
+                     },
+                     pwd:{
+                         required:"用户名不符合要求",
+                         minlength:"最小长度为2",
+                         maxlength:"最大长度为10"
+                     },
+                     email:{
+
+                         email:"邮箱填写不符合要求"
+                     }
+                },
+				submitHandler:function(form) {
+                        alert("验证通过")
+                        sendDateToServer()
+
+                }
+      })
+        }
+
+    function  sendDateToServer(){
+            console.log("122")
+          $("form").ajaxSubmit(function(data){
+                                //data  json格式
+                                var data1=JSON.parse(data);
+                                if(data1["code"]==0){
+                                    alert(data1["msg"]);
+                                    {#location.href="/user/login"#}
+                                }else{
+                                    alert(data1["msg"]);
+                                }
+                            });
+
+    }
+</script>
+</body>
+</html>

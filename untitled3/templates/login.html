@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>登录</h1>
+
+     <p>姓名<input type="text" name="user1" id="user1"></p>
+    <p>密码<input type="text" name="pwd1" id="pwd1"></p>
+     <p><input type="submit" name="确定" class="submit"></p>
+
+
+</body>
+</body>
+<script src="/static/js/jquery.js"></script>
+<script>
+    var _user1=$("#user1").val();
+     var _pwd1=$("#pwd1").val();
+
+     $(".submit").click(function(){
+       if (_user1==localStorage.getItem("nameuser") && _pwd1==localStorage.getItem( "namepwd" )){
+            console.log("正确的");
+            location.href="http://127.0.0.1:8001/polls/list";
+       }else{
+           location.href="http://127.0.0.1:8001/polls/login";
+       }
+    });
+
+    {#var _user1=document.getElementById("user1").value;#}
+    {#var _pwd1=document.getElementById("pwd1").value;#}
+    {#function aaa(){#}
+    {#    console.log(_user1)#}
+    {#   if (_user1==localStorage.getItem("nameuser") && _pwd1==localStorage.getItem( "namepwd" )) {#}
+    {#      console.log("11111");#}
+    {#  }else{#}
+    {#        console.log("222");#}
+    {#   }#}
+
+
+
+</script>
+
+</html>
