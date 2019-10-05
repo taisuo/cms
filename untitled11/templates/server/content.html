@@ -1,0 +1,98 @@
+{% include 'common/server/header.html' %}
+<div class="row">
+     <div class="col-xs-2" style="background-color: #0f0f0f;height: 1000px">{% include 'common/server/footer.html' %}</div>
+     <div class="col-xs-10" style="height: 1000px">
+         <div class="row" style="margin: 20px">
+             <div class="panel panel-default">
+                  <div class="panel-heading"><span class="glyphicon glyphicon-tag" ></span>平台整理指标  内容</div>
+             </div>
+             <form action="/server/contentHandle" method="post" enctype="multipart/form-data">
+                   {% csrf_token%}
+                 <div class="panel-heading"><label>标题</label><input type="text" name="title"></div>
+                 <div class="panel-heading"><label>缩略图</label>
+                     <input type="file" name="headImg" id="headImg">
+                     <img id="headImgPre" style="width: 200px;height: 200px">
+                 </div>
+                 <div class="panel-heading"><label>标题颜色</label><input type="text" name="colorlist"></div>
+                 <div class="panel-heading"><label>所属栏目</label><input type="text" name="num">
+                     <div class="panel-heading"><label>内容</label><input type="text" name="content"></div>
+                 <div class="panel-heading">{{ form.media }}{{ form }}</div>
+                 <div><input type="submit"> <input type="reset"></div>
+             </form>
+         </div>
+
+     </div>
+</div>
+
+
+</body>
+<script>
+    init()
+    function init(){
+        $("#headImg").change(changeImg)
+    }
+    function changeImg(){
+        var imgFile=this.files.item(0);
+        var _url=window.URL.createObjectURL(imgFile);
+        $("#headImgPre").attr("src",_url);
+    validate()
+    }
+
+     function validate(){
+             $("form").validate({
+         rules:{
+             title:{
+                 required:true,
+                 minlength:2,
+                 maxlength:10
+             },
+            colorlist:{
+                  required:true,
+                  minlength:2,
+                  maxlength:10
+             },
+             num:{
+
+                    email:true
+                }
+				},
+				messages:{
+                     title:{
+                          required:"用户名不符合要求",
+                          minlength:"最小长度为2",
+                          maxlength:"最大长度为10"
+                     },
+                     colorlist:{
+                         required:"用户名不符合要求",
+                         minlength:"最小长度为2",
+                         maxlength:"最大长度为10"
+                     },
+                     num:{
+
+                         num:"邮箱填写不符合要求"
+                     }
+                },
+				submitHandler:function(form) {
+                        alert("验证通过")
+                        sendDateToServer()
+
+                }
+      })
+        }
+
+    function  sendDateToServer(){
+            console.log("122")
+          $("form").ajaxSubmit(function(data){
+                                //data  json格式
+                                var data1=JSON.parse(data);
+                                if(data1["code"]==0){
+                                    alert(data1["msg"]);
+                                    {#location.href="/user/login"#}
+                                }else{
+                                    alert(data1["msg"]);
+                                }
+                            });
+
+    }
+</script>
+</html>

@@ -20,5 +20,6 @@ urlpatterns = [
     path('index/', include('index.urls')),
     path('admin/', admin.site.urls),
     path('server/', include('server.urls')),
+    path('ueditor/', include('DjangoUeditor.urls')),
 ]
 

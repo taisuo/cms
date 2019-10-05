@@ -15,6 +15,7 @@ class inadmin(models.Model):
 
 class inmenu(models.Model):
     menuname=models.CharField(max_length=32)
+    mecatid=models.PositiveSmallIntegerField(null=True)
     class Meta:  # 重命名
         # 数据库中生成的表名称 默认 app名称 + 下划线 + 类名
         db_table = "menu"
