@@ -8,7 +8,7 @@
                 <form action="/server/menuHandle" method="post">
                      {% csrf_token%}
                      <div class="panel-heading"><label>菜单名</label><input type="text" name="menutitle"></div>
-
+                      <div class="panel-heading"><label>方法</label><input type="text" name="menuadd"></div>
                      <div class="panel-heading"><label>类型</label><input type="radio" name="radionum" value="1">后台菜单<input type="radio" name="radionum" value="0">前台栏目</div>
 
                      <div><input type="submit"> <input type="reset"></div>

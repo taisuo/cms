@@ -19,7 +19,8 @@ def index(request):
 def content(request):
     form=TestUEditorForm()
     print(form)
-    return render(request, "server/content.html",{"form":form})
+    listinfo = inmenu.objects.all()
+    return render(request, "server/content.html",{"form":form,"listinfo":listinfo})
 def contentHandle(request):
     title=request.POST.get("title")
     colorlist = request.POST.get("colorlist")
@@ -49,7 +50,7 @@ def contentHandle(request):
 
     newscontent = innews_content(newsid=1,content=content,newstime=timenum)
     newscontent.save()
-    list=innews_content.objects.all().values("id")
+    # list=innews_content.objects.all().values("id")
     list=innews_content.objects.filter(content=content).order_by('-id')
     for item in list:
          cat=item.id
@@ -90,13 +91,33 @@ def menu(request):
     return render(request, "server/menu.html")
 def menuHandle(request):
     menutitle = request.POST.get("menutitle")
+    menuaddnum = request.POST.get("menuadd")
     radionum = request.POST.get("radionum")
     print(menutitle,radionum)
-    newscontent = inmenu(menuname=menutitle,mecatid=radionum)
+    newscontent = inmenu(menuname=menutitle,mecatid=radionum,menuadd=menuaddnum)
     newscontent.save()
     return HttpResponse(utils.returnResult(0, "发布成功"))
 def menulist(request):
     list = inmenu.objects.all()
-    list1 = inmenu.objects.filter(mecatid="0")
-    print(list1)
+
     return render(request, "server/menulist.html",{"list":list})
+def recommend(request):
+
+    return render(request, "server/recommend.html", {"list": list})
+def recommendHandle(request):
+    menutitle = request.POST.get("menutitle")
+    recomtitle = request.POST.get("recomtitle")
+    radionum = request.POST.get("radionum")
+    print(menutitle, recomtitle, radionum)
+    timenum = datetime.now()
+    inposition = inposition_content(content=menutitle,newsid=radionum ,createttime=timenum )
+    inposition.save()
+    return HttpResponse(utils.returnResult(0, "发布成功"))
+def admin(request):
+    return render(request, "server/admin.html", {"list": list})
+def adminHandle(request):
+    return HttpResponse(utils.returnResult(0, "发布成功"))
+def login(request):
+    return render(request, "server/login.html", {"list": list})
+def loginHandle(request):
+    return HttpResponse(utils.returnResult(0, "发布成功"))

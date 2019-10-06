@@ -7,7 +7,7 @@ class inadmin(models.Model):
     email=models.CharField(max_length=50,null=True)
     lasttime=models.DateTimeField(null=True)
     registtime=models.DateTimeField(null=True)
-
+    images = models.CharField(max_length=64, null=True)
     class Meta:  # 重命名
         # 数据库中生成的表名称 默认 app名称 + 下划线 + 类名
         db_table = "admin"
@@ -16,6 +16,7 @@ class inadmin(models.Model):
 class inmenu(models.Model):
     menuname=models.CharField(max_length=32)
     mecatid=models.PositiveSmallIntegerField(null=True)
+    menuadd = models.CharField(max_length=32,null=True)
     class Meta:  # 重命名
         # 数据库中生成的表名称 默认 app名称 + 下划线 + 类名
         db_table = "menu"
@@ -47,8 +48,10 @@ class inposition(models.Model):
         db_table = "inposition"
 
 class inposition_content(models.Model):
-    positionid=models.PositiveSmallIntegerField(max_length=5)
+    positionid=models.PositiveSmallIntegerField(max_length=5,null=True)
     newsid=models.PositiveSmallIntegerField(max_length=5)
+    createttime = models.DateTimeField(null=True)
+    content = models.CharField(max_length=32, null=True)
     class Meta:  # 重命名
         # 数据库中生成的表名称 默认 app名称 + 下划线 + 类名
         db_table = "inposition_content"
