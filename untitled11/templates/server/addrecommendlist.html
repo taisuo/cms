@@ -1,0 +1,84 @@
+{% include 'common/server/header.html' %}
+<div class="row">
+     <div class="col-xs-2" style="background-color: #0f0f0f;height: 1000px">{% include 'common/server/footer.html' %}</div>
+     <div class="col-xs-10" style="height: 1000px">
+         <div class="row" style="margin: 20px">
+             <div class="panel panel-default">
+                  <div class="panel-heading"><span class="glyphicon glyphicon-tag" ></span>平台整理指标  推荐</div>
+             </div>
+              <form action="/server/recommendHandle" method="post">
+                     {% csrf_token%}
+                  <div class="panel-heading"><label>推荐位</label><input type="text" name="menutitle" id="menutitle"></div>
+                   <div class="panel-heading"><label>类型</label><input type="radio" name="radionum" value="1" id="radionum">后台影藏<input type="radio" name="radionum" value="0" id="radionum">前台显示</div>
+                  <div class="panel-heading"><label>推荐位说明</label><input type="text" name="recomtitle" id="recomtitle"></div>
+                 <div><input type="submit"> <input type="reset"></div>
+              </form>
+         </div>
+
+     </div>
+</div>
+</body>
+<script>
+
+          init()
+          function init(){
+              var url = location.search.split( "=" )[ 1 ]
+              console.log(url)
+             $.ajax({
+                        url:"/server/addrecommendlistHandle",
+                        type:"get",
+                        dataType:"json",
+                        data:{
+                            uid:url
+                        },
+                        success:function(data){
+                                console.log( data)
+
+
+                        }
+                    });
+
+
+              validate()
+          }
+           function  validate(){
+             $("form").validate({
+                 rules:{
+                     menutitle:{
+                         required:true,
+                         minlength:2,
+                         maxlength:100
+                     }
+				},
+				messages:{
+                     menutitle:{
+                          required:"用户名不符合要求",
+                          minlength:"最小长度为2",
+                          maxlength:"最大长度为10"
+                     }
+                },
+				submitHandler:function(form) {
+                        alert("验证通过")
+                        sendDateToServer()
+                }
+      })
+
+}
+    function  sendDateToServer(){
+            console.log("122")
+          $("form").ajaxSubmit(function(data){
+                                //data  json格式
+                                var data1=JSON.parse(data);
+                                if(data1["code"]==0){
+                                    alert(data1["msg"]);
+                                    {#location.href="/server/menulist"#}
+                                }else{
+                                    alert(data1["msg"]);
+                                }
+                            });
+
+    }
+
+
+</script>
+</html>

@@ -6,13 +6,14 @@
              <div class="panel panel-default">
                   <div class="panel-heading"><span class="glyphicon glyphicon-tag" ></span>平台整理指标  登录</div>
              </div>
-             <form action="/server/menuHandle" method="post">
+             <form action="/server/loginHandle" method="post">
                      {% csrf_token%}
-                  <div class="panel-heading"><label>菜单名</label><input type="text" name="menutitle"></div>
-                  <div class="panel-heading"><label>菜单名</label><input type="text" name="menutitle"></div>
+                  <div class="panel-heading"><label>姓名</label><input type="text" name="username"></div>
+                  <div class="panel-heading"><label>密码</label><input type="text" name="pwd"></div>
 
-                  <div class="panel-heading"><label>菜单名</label><input type="text" name="menutitle"></div>
+                  <div class="panel-heading"><label>邮箱</label><input type="text" name="email"></div>
                   <div><input type="submit"> <input type="reset"></div>
+                 <img src="">
               </form>
          </div>
 
@@ -20,28 +21,53 @@
 </div>
 </body>
 <script>
-          console.log(123)
+    init()
+    function init(){
+
+
+        validate()
+    }
+        function validate(){
              $("form").validate({
-                 rules:{
-                     menutitle:{
-                         required:true,
-                         minlength:2,
-                         maxlength:100
-                     }
+         rules:{
+             username:{
+                 required:true,
+                 minlength:2,
+                 maxlength:10
+             },
+            pwd:{
+                  required:true,
+                  minlength:2,
+                  maxlength:10
+             },
+             email:{
+
+                    email:true
+                }
 				},
 				messages:{
-                     menutitle:{
+                     username:{
                           required:"用户名不符合要求",
                           minlength:"最小长度为2",
                           maxlength:"最大长度为10"
+                     },
+                     pwd:{
+                         required:"用户名不符合要求",
+                         minlength:"最小长度为2",
+                         maxlength:"最大长度为10"
+                     },
+                     email:{
+
+                        email:"邮箱填写不符合要求"
                      }
                 },
 				submitHandler:function(form) {
                         alert("验证通过")
                         sendDateToServer()
+
                 }
       })
-
+        }
 
     function  sendDateToServer(){
             console.log("122")
@@ -50,12 +76,28 @@
                                 var data1=JSON.parse(data);
                                 if(data1["code"]==0){
                                     alert(data1["msg"]);
-                                    location.href="/server/menulist"
+                                    {#location.href="/user/login"#}
                                 }else{
                                     alert(data1["msg"]);
                                 }
                             });
 
     }
+    function getCookie(name) {
+        console.log("_--getCookie")
+        var cookieName = encodeURIComponent(name) + '=';
+        var cookieStart = document.cookie.indexOf(cookieName);
+        var cookieValue = null;
+
+        if (cookieStart > -1) {
+            var cookieEnd = document.cookie.indexOf(';', cookieStart);
+            if (cookieEnd == -1) {
+                cookieEnd = document.cookie.length;
+            }
+            cookieValue = decodeURIComponent(
+    document.cookie.substring(cookieStart + cookieName.length, cookieEnd));
+        }
+	return cookieValue;
+}
 </script>
 </html>

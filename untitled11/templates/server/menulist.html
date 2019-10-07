@@ -56,4 +56,34 @@
      </div>
 </div>
 </body>
+<script>
+    function copyText(data){
+        console.log(data)
+        location.href="/server/addcontentlist?id="+data
+    }
+    function delcopyText(data){
+        console.log(data)
+          $.ajax({
+                        url:"/server/delmenuHandle",
+                        type:"get",
+                        dataType:"json",
+                        data:{
+                            uid:data
+                        },
+                        success:function(data){
+                                console.log( data)
+
+                                var data1=JSON.parse(data);
+                                if(data1["code"]==0){
+                                    alert(data1["msg"]);
+                                    location.href="/server/menulist"
+                                }else{
+                                    alert(data1["msg"]);
+                                }
+                        }
+                    });
+
+    }
+
+</script>
 </html>

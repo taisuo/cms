@@ -8,6 +8,7 @@ class inadmin(models.Model):
     lasttime=models.DateTimeField(null=True)
     registtime=models.DateTimeField(null=True)
     images = models.CharField(max_length=64, null=True)
+    content =models.TextField(max_length=6400, null=True)
     class Meta:  # 重命名
         # 数据库中生成的表名称 默认 app名称 + 下划线 + 类名
         db_table = "admin"
@@ -27,7 +28,7 @@ class news(models.Model):
     title_font_colour=models.CharField(max_length=8,null=True)
     thumb=models.CharField(max_length=64,null=True)
     num=models.PositiveSmallIntegerField(max_length=5)
-
+    clicknum = models.PositiveSmallIntegerField(null=True)
     class Meta:  # 重命名
         # 数据库中生成的表名称 默认 app名称 + 下划线 + 类名
         db_table = "news"

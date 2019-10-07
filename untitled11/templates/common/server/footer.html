@@ -1,9 +1,32 @@
-<div class="list-group" >
-  <a href="#" class="list-group-item " style="color: white;background-color: #0f0f0f;border: 1px solid black">首页</a>
-  <a href="#" class="list-group-item" style="color: white;background-color: #0f0f0f;border: 1px solid black">菜单管理</a>
-  <a href="#" class="list-group-item" style="color: white;background-color: #0f0f0f;border: 1px solid black">文章管理</a>
-  <a href="#" class="list-group-item" style="color: white;background-color: #0f0f0f;border: 1px solid black">用户管理</a>
-  <a href="#" class="list-group-item" style="color: white;background-color: #0f0f0f;border: 1px solid black">推荐管理</a>
-   <a href="#" class="list-group-item" style="color: white;background-color: #0f0f0f;border: 1px solid black">推荐位内容管理</a>
-   <a href="#" class="list-group-item" style="color: white;background-color: #0f0f0f;border: 1px solid black">基本管理</a>
+<div class="list-group" id="list">
+{#   <a href="#" class="list-group-item " style="color: white;background-color: #0f0f0f;border: 1px solid black">首页</a>#}
+{#   <a href="#" class="list-group-item" style="color: white;background-color: #0f0f0f;border: 1px solid black">菜单管理</a>#}
+{#   <a href="#" class="list-group-item" style="color: white;background-color: #0f0f0f;border: 1px solid black">文章管理</a>#}
+{#   <a href="#" class="list-group-item" style="color: white;background-color: #0f0f0f;border: 1px solid black">用户管理</a>#}
+{#   <a href="#" class="list-group-item" style="color: white;background-color: #0f0f0f;border: 1px solid black">推荐管理</a>#}
+{#   <a href="#" class="list-group-item" style="color: white;background-color: #0f0f0f;border: 1px solid black">推荐位内容管理</a>#}
+{#   <a href="#" class="list-group-item" style="color: white;background-color: #0f0f0f;border: 1px solid black">基本管理</a>#}
 </div>
+<script>
+    init()
+    function init(){
+        console.log("footer")
+          $.ajax({
+                        url:"/server/indexHandle",
+                        type:"get",
+                        dataType:"json",
+                        data:{
+                            uid:1
+                        },
+                        success:function(data){
+                                console.log( data.data)
+                        for(var i=0;i<JSON.parse(data["data"]).length;i++){
+                      $("#list").append("<a href='/server/"+JSON.parse(data["data"])[i]["fields"]["menuadd"]+"' class='list-group-item' style='color: white;background-color: #0f0f0f;border: 1px solid black'>"+JSON.parse(data["data"])[i]["fields"]["menuname"]+"</a>")
+                }
+                }
+
+
+                    });
+
+    }
+</script>

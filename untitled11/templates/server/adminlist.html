@@ -12,34 +12,67 @@
                  <tr>
                 <th style="text-align: center;"><input type="checkbox" value="" name="news"></th>
                    <th style="text-align: center;">id</th>
-                   <th style="text-align: center;">标题</th>
-                   <th style="text-align: center;">栏目</th>
+                   <th style="text-align: center;">名字</th>
+                   <th style="text-align: center;">密码</th>
                    <th style="text-align: center;">封面图</th>
                 <th style="text-align: center;">更新时间</th>
-                   <th style="text-align: center;">点击量</th>
-                 <th style="text-align: center;">状态</th>
+                   <th style="text-align: center;">邮箱</th>
+                        <th style="text-align: center;">简介</th>
                    <th style="text-align: center;">操作</th>
                  </tr>
                </thead>
-               <tbody>
-                 <tr>
-                <td><input type="checkbox" value="" name="news"></td>
-                   <td>1</td>
-                   <td>文章标题</td>
-                   <td>综合</td>
-                   <td>封面图（缩略图）</td>
-                <td>更新时间</td>
-                <td>点击量</td>
-                <td>显示</td>
-                   <td>
-               <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></button>
-               <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-               <button class="btn btn-info"><span class="glyphicon glyphicon-eye-open"></span></button>
+               {% for item in user %}
+                   <tbody>
+                   <tr>
+                   <td><input type="checkbox" value="" name="news"></td>
+                   <td>{{ item.id }}</td>
+                   <td>{{ item.username }}</td>
+                   <td>{{ item.password}}</td>
+                   <td><img style="width: 50px;height: 50px" src="/static/uploads/{{ item.images}}"></td>
+                    <td>{{ item.registtime|date:'Y-m-d h:m:s'}}</td>
+                    <td>{{ item.email}}</td>
+                    <td>{{ item.content}}</td>
+                   <td>
+                <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"onclick="copyText({{ item.id }})"></span></button>
+                <button class="btn btn-danger"><span class="glyphicon glyphicon-trash" onclick="delcopyText()"></span></button>
                 </td>
-                 </tr>
+                   </tr>
+                   </tbody>
+                {% endfor %}
              </table>
 
      </div>
 </div>
 </body>
+<script>
+    function copyText(data){
+        console.log(data)
+        location.href="/server/addcontentlist?id="+data
+    }
+    function delcopyText(data){
+        console.log(data)
+          $.ajax({
+                        url:"/server/deladminHandle",
+                        type:"get",
+                        dataType:"json",
+                        data:{
+                            uid:data
+                        },
+                        success:function(data){
+                                console.log( data)
+
+                                var data1=JSON.parse(data);
+                                if(data1["code"]==0){
+                                    alert(data1["msg"]);
+                                    location.href="/server/adminlist"
+                                }else{
+                                    alert(data1["msg"]);
+                                }
+                        }
+                    });
+
+    }
+
+
+</script>
 </html>

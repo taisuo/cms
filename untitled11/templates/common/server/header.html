@@ -16,8 +16,76 @@
 <body>
 <nav class="navbar navbar-inverse" style="margin-bottom:0px">
     <span class="navbar-brand " style="border: 1px solid red ;margin-right: 70%">路赞后台管理系统</span>
-     <span class="glyphicon glyphicon-user navbar-brand" aria-hidden="true"></span><span class="navbar-brand ">欢迎</span><span class="glyphicon glyphicon-log-out navbar-brand" aria-hidden="true"></span><span class="navbar-brand ">退出</span>
+     <span class="glyphicon glyphicon-user navbar-brand" aria-hidden="true"></span><span class="navbar-brand ">欢迎</span><span class="navbar-brand " id="name" style="color: red"></span><span class="glyphicon glyphicon-log-out navbar-brand" aria-hidden="true"></span><span class="navbar-brand " onclick="btn()">退出</span>
 </nav>
 
 </body>
+<script>
+
+     init()
+    function init(){
+        var str=getCookie("uid")
+        console.log(str)
+        document.getElementById("name").innerHTML=str
+
+    }
+    function btn(){
+         console.log(123)
+           $.ajax({
+                        url:"/server/delHandle",
+                        type:"get",
+                        dataType:"json",
+                        data:{
+                            uid:"uid"
+                        },
+                        success:function(data){
+                                console.log( data)
+
+
+                        }
+                    });
+    }
+
+    function  removeCookie(_key){
+         console.log(1234)
+			getsetcookie(_key,"",-100);
+		}
+		function getsetcookie(name,value,_date,_path,_domain,_secure){
+         console.log(12345)
+			var setdata=name+"="+value;
+			if (_date) {
+				var date1=new Date();
+			    date1.setDate(date1.getDate()+_date);
+			    setdata+='; expires=' + date1;
+			}
+			 console.log(12345)
+			if (_path) {
+				setdata +='; path ='+_path;
+			}
+			if (_domain) {
+				setdata +='; domain='+_domain;
+			}
+             if (_secure) {
+				setdata +='; secure='+_secure;
+			}
+console.log(12345)
+				document.cookie = setdata;
+		}
+     function getCookie(name) {
+        console.log("_--getCookie")
+        var cookieName = encodeURIComponent(name) + '=';
+        var cookieStart = document.cookie.indexOf(cookieName);
+        var cookieValue = null;
+
+        if (cookieStart > -1) {
+            var cookieEnd = document.cookie.indexOf(';', cookieStart);
+            if (cookieEnd == -1) {
+                cookieEnd = document.cookie.length;
+            }
+            cookieValue = decodeURIComponent(
+    document.cookie.substring(cookieStart + cookieName.length, cookieEnd));
+        }
+	return cookieValue;
+}
+</script>
 </html>
