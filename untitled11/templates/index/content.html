@@ -1,0 +1,49 @@
+{% include 'common/index/header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>content</title>
+    <style>
+        p{
+            display: inline-block;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"/>
+    <script src="/static/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-7">
+                {% for item in title%}
+                    <h3>{{ item.title}}</h3>
+                {% endfor %}
+                {% for a in content%}
+
+                    <time>{{ a.newstime|date:"Y-m-d H:i:s" }}</time>
+                    <div class="bs-example" data-example-id="body-copy">
+                        <p>{{ a.content }}</p>
+                    </div>
+                {% endfor %}
+
+                <time>{{ a.newstime|date:"Y-m-d H:i:s" }}</time>
+
+            </div>
+            <div class="col-xs-5">
+                <h3 style="border-bottom:1px solid gainsboro">文章排行</h3>
+                    {% for i in title%}
+                        <li style="list-style:decimal; border-bottom:1px solid gainsboro">{{ i.title }}</li>
+                    {% endfor %}
+                    {% for item in mecat%}
+                        <div class="thumbnail" style=" margin-top: 10px">
+                            <img data-src="holder.js/100%x200" alt="100%x200" src="/static/uploads/{{ item.thumb }}" data-holder-rendered="true" style="height: 100px; width: 50%; display: block;">
+                        </div>
+                    {% endfor %}
+            </div>
+        </div>
+        {% include 'common/index/footer.html' %}
+    </div>
+</body>
+</html>

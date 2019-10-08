@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>头部</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"/>
+    <script src="/static/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    {#导航#}
+    <div class="container-fluid navbar-inverse" style="height: 60px">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="container-fluid">
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+                  <ul class="nav navbar-nav">
+                    <span class="h1 text-muted " style="line-height: 20px; color: #ebebeb; float: left;" >路赞</span>
+                    <span class="h3 text-muted" style=" margin-left: 5px; color: #ebebeb; float: left;">新闻杂志</span>
+    {#                <li class="active"><a href="#">首页</a></li>#}
+    {#                <li><a href="/index/list">体育</a></li>#}
+    {#                <li><a href="/index/list">科技</a></li>#}
+    {#                <li><a href="/index/list">综合</a></li>#}
+
+                      {% for item in mecatid %}
+                          <li style=" margin-top: 5px"><a href="/index/{{ item.menuadd }}?id={{ item.id }}">{{ item.menuname }}</a></li>
+                      {% endfor %}
+                  </ul>
+                </div><!-- /.navbar-collapse -->
+              </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $("li").click(function () {
+        var f = this;
+        $("li").each(function () {
+            this.className = this == f ? 'active' : 'none'
+        });
+    })
+    $("li:eq(0)").click(function () {
+        location.href="/index/index"
+    })
+    $("li:eq(1)").click(function () {
+        location.href="/index/science"
+    })
+    $("li:eq(2)").click(function () {
+        location.href="/index/comprehensive"
+    })
+    $("li:eq(3)").click(function () {
+        location.href="/index/phy"
+    })
+
+</script>
+</html>

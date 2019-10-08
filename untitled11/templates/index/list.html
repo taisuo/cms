@@ -1,0 +1,73 @@
+{% include 'common/index/header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表</title>
+    <style>
+        .content{
+            margin-top: 10px;
+        }
+        .list{
+            margin-top: 10px;
+        }
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"/>
+    <script src="/static/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div class="container-fluid">
+
+{#    中心内容列表#}
+        <div class="row">
+            <div class="col-xs-7">
+                <div class="bs-example" data-example-id="media-alignment">
+                    {% for item in mecat%}
+                        <div class="media" style="height: 160px">
+                          <div class="media-left">
+                            <a href="#">
+                              <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="/static/uploads/{{ item.thumb }}" data-holder-rendered="true" style="width: 64px; height: 64px;">
+                            </a>
+                          </div>
+                         <div class="media-body">
+                               <h4 class="media-heading">{{ item.title}}</h4>
+
+                             {% for a in content%}
+                               <p>{{ a.content }}</p>
+                               <time>{{ a.newstime|date:"Y-m-d H:i:s" }}</time>
+                               <p id="read" style="display: inline-block; margin-left: 3%">阅读（）</p>
+                             {% endfor %}
+                          </div>
+
+                        </div>
+                    {% endfor %}
+
+              </div>
+            </div>
+            <div class="col-xs-5">
+                <h3 style="border-bottom:1px solid gainsboro">文章排行</h3>
+                    {% for i in title%}
+                        <li style="list-style:decimal; border-bottom:1px solid gainsboro">{{ i.title }}</li>
+                    {% endfor %}
+                    {% for item in mecat%}
+                        <div class="thumbnail" style=" margin-top: 10px">
+                            <img data-src="holder.js/100%x200" alt="100%x200" src="/static/uploads/{{ item.thumb }}" data-holder-rendered="true" style="height: 100px; width: 50%; display: block;">
+                        </div>
+                    {% endfor %}
+            </div>
+        </div>
+   {% include 'common/index/footer.html' %}
+    </div>
+</body>
+<script>
+    $("li").click(function () {
+        var f = this;
+        $("li").each(function () {
+            this.className = this == f ? 'active' : 'none'
+        });
+    })
+
+</script>
+</html>
