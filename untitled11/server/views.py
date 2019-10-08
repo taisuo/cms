@@ -82,6 +82,10 @@ def addcontentlist(request):
     list = inmenu.objects.filter(mecatid="0")
 
     return render(request, "server/menulist.html",{"list":list})
+def addcontent(request):
+    list = inmenu.objects.filter(mecatid="0")
+
+    return render(request, "server/addcontent.html",{"list":list})
 def delcontentHandle(request):
     id = request.GET.get("uid")
     print(id)
@@ -122,6 +126,14 @@ def selectcontentHandle(request):
     list = news.objects.filter(title__contains=uid,num=uid1)
     print(list)
     return render(request, "server/contentlist.html", {"list": list})
+def btnclickaddHandle(request):
+    uid = request.GET.get("uid")
+    uid1 = request.GET.get("uid1")
+    print(eval(uid))
+    for i in eval(uid):
+        print(i)
+    news.objects.filter(id__in=eval(uid)).update(num=uid1)
+    return HttpResponse(utils.returnResult(0, "发布成功"))
 def menu(request):
     return render(request, "server/menu.html")
 def menuHandle(request):
